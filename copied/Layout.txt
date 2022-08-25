@@ -1,0 +1,199 @@
+import React from 'react'
+import { Grid, Flex, Box, Button } from '@chakra-ui/react'
+import { Navbar } from '../component/Navbar'
+import { Topbar } from '../component/Topbar'
+import HamburgerMenu from '../component/Hamburger'
+import {
+  FaRupeeSign,
+  FaRocket,
+  FaUserFriends,
+  FaRegUserCircle,
+  FaStripe,
+  FaBullhorn
+} from 'react-icons/fa'
+import {
+  MdShowChart,
+  MdDataUsage,
+  MdOutlinePayments,
+  MdOutlineSubscriptions,
+  MdOutlineSettings,
+  MdMobileScreenShare,
+  MdLanguage,
+  MdOutlineVideoLibrary,
+  MdOutlinePlayCircle,
+  MdRadioButtonUnchecked,
+  MdEmojiFlags,
+  MdLocalFlorist,
+  MdOutlineSupervisorAccount
+} from 'react-icons/md'
+
+// RiFileUserLine
+
+export default function Layout({ children, setUsers }: any) {
+
+  const data = [
+    {
+      id: "1-C",
+      img: FaRupeeSign,
+      name: "Account",
+      path: "Account/Stripe",
+      item: [
+        {
+          id: "1-C-1",
+          item_name: "Set up Stripe",
+          path: "Account/Stripe",
+          subicon: FaStripe,
+
+        },
+        {
+          id: "1-C-2",
+          item_name: "Create Subscription",
+          path: "Account/Subscription",
+          subicon: MdEmojiFlags,
+        },
+        {
+          id: "1-C-3",
+          item_name: "Set up Advertising",
+          path: "Account/Advertising",
+          subicon: FaBullhorn,
+        },
+      ]
+    },
+    {
+      id: "2-C",
+      name: "Analytics",
+      img: MdShowChart,
+      path: "Analytics/Overview",
+      item: [
+        {
+          id: "2-C-1",
+          item_name: "Overview",
+          path: "Analytics/Overview",
+          subicon: MdRadioButtonUnchecked,
+        },
+        {
+          id: "2-C-2",
+          item_name: "Video Analytics",
+          path: "Analytics/VideoAnalytics",
+          subicon: MdOutlineVideoLibrary,
+        },
+        {
+          id: "2-C-3",
+          item_name: "Video Performance",
+          path: "Analytics/VideoPerformance",
+          subicon: MdOutlinePlayCircle,
+        },
+        {
+          id: "2-C-4",
+          item_name: "User Analytics",
+          path: "Analytics/UserAnalytics",
+          subicon: FaUserFriends,
+        }
+      ]
+    },
+    {
+      id: "3-C",
+      img: FaRocket,
+      name: "Launch",
+      path: "Launch/CustomizeBrand",
+      item: [
+        {
+          id: "3-C-1",
+          item_name: "Customize Brand",
+          path: "Launch/CustomizeBrand",
+          subicon: MdLocalFlorist,
+        },
+        {
+          id: "3-C-2",
+          item_name: "Launch Website",
+          path: "Launch/LaunchWebsite",
+          subicon: MdLanguage,
+        },
+        {
+          id: "3-C-3",
+          item_name: "Launch App",
+          path: "Launch/LaunchApp",
+          subicon: MdMobileScreenShare,
+        }
+      ]
+    },
+    {
+      id: "4-C",
+      img: MdOutlineSupervisorAccount,
+      name: "Users",
+      path: "Users/MyUsers",
+      item: [
+        {
+          id: "4-C-1",
+          item_name: "My App Users",
+          path: "Users/MyUsers",
+          subicon: MdOutlineSupervisorAccount,
+        },
+      ]
+    },
+    {
+      id: "5-C",
+      img: FaRegUserCircle,
+      name: "Profile",
+      path: "Profile/DataUsage",
+      item: [
+        {
+          id: "5-C-1",
+          item_name: "Data Usage",
+          path: "Profile/DataUsage",
+          subicon: MdDataUsage,
+        },
+        {
+          id: "5-C-2",
+          item_name: "Bills and Payments",
+          path: "Profile/BillsAndPayments",
+          subicon: MdOutlinePayments,
+        },
+        {
+          id: "5-C-3",
+          item_name: "Subscription Plans",
+          path: "Profile/SubscriptionPlans",
+          subicon: MdOutlineSubscriptions,
+        },
+        {
+          id: "5-C-4",
+          item_name: "Profile Settings",
+          path: "Profile/ProfileSettings",
+          subicon: MdOutlineSettings,
+        },
+      ],
+    }
+  ]
+
+  return (
+
+    <Grid w={"100%"} height={'100vh'} gridTemplateRows={'4em 1fr'}>
+      <Box backgroundColor="#FFFFFF" gridRow="1/2">
+        <Topbar setUsers={setUsers} data={data} />
+      </Box>
+      <Grid backgroundColor="#FFFFFF" gridRow="2/-1" gridTemplateColumns={'20em 1fr'}>
+        <Grid gridColumn={"1/2"} boxSizing='border-box'>
+          <Navbar data={data} />
+        </Grid>
+        <Grid gridColumn={"2/3"}>
+          <main>{children}</main>
+        </Grid>
+      </Grid>
+    </Grid >
+
+
+
+
+    // <Grid w={"100%"} height={'100vh'} gridTemplateRows={'4em 1fr'}>
+    //     <Box gridRow={"1/2"} boxSizing='border-box'>
+    //         <Flex>
+    //             {/* <HamburgerMenu data={data} /> */}
+    //             <Topbar setUsers={setUsers} data={data} />
+    //         </Flex>
+    //     </Box>
+    //     <Box gridRow={"2/3"}>
+    //         <main>{children}</main>
+    //     </Box>
+    // </Grid>
+  )
+}

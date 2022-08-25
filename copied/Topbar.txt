@@ -1,0 +1,127 @@
+import React from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { Grid, Button, Box, Flex, Icon, Tooltip, Avatar } from '@chakra-ui/react'
+import { ArrowBackIcon } from '@chakra-ui/icons'
+import { MdOutlineMovie } from 'react-icons/md'
+
+export function Navbar(props: any) {
+  const { data } = props;
+  let router = useRouter();
+
+  const [activeElement, setActiveElement] = React.useState(router.asPath === "/" ? "/Account/Stripe" : router.asPath);
+
+
+  const onBackButtonClick = () => {
+    router.back()
+  }
+
+  const onNavIconClick = (val: any) => {
+    setActiveElement(val)
+  }
+
+  return (
+    <Grid h="100vh" boxSizing='border-box' position={"fixed"} w="20em">
+      <Box>
+        <Flex margin="0" w="100%" h="100%" >
+          <Box bg="#18222F" w="21.5%" >
+            <Box h="80%">
+              {data.map((list: any, index: any) => {
+                return (
+                  <Box key={index}>
+                    <NavigationLink
+                      id={list.id}
+                      firstItem={list.item[0]}
+                      img={list.img}
+                      href={list.path}
+                      menuName={list.name}
+                      onNavIconClick={onNavIconClick}
+                      router={router} />
+                  </Box>
+                )
+              })}
+            </Box>
+            <Flex h="20%" flexDirection="column" justifyContent="center" alignItems="center" >
+              <Flex>
+                <Avatar name='Skara' src='/logo.png' bg="transparent" />
+              </Flex>
+              <Flex color="white" textAlign="center">
+                SKARA CMS
+              </Flex>
+            </Flex>
+          </Box>
+          {data.map((list: any, index: any) => {
+            return (
+              <Box w="78.5%"
+                key={index}
+                style={{ display: activeElement.split("/")[1] === list.path.split("/")[0] ? 'block' : 'none' }}
+                bg={"#F0F4F9"}
+              >
+                {list.item.map((item: any, key: any) => {
+                  return (
+                    <Flex key={key} m={"1em"} justifyContent="flex-start" alignItems="center">
+                      <SubNavigationLink
+                        href={item.path}
+                        subMenuName={item.item_name}
+                        subIcon={item.subicon}
+                        router={router} />
+                    </Flex>
+                  )
+                })}
+              </Box>
+            )
+          })}
+        </Flex>
+      </Box>
+    </Grid>
+  )
+}
+
+function NavigationLink({ id, href, menuName, onNavIconClick, router, img }: any) {
+
+  const isActive = router.asPath.split("/")[1] === `${href.split("/")[0]}`;
+
+  return (
+    <Link href={`/${href}`}>
+      <a>
+        <Tooltip label={menuName} placement="right">
+          <Box id={id}
+            bg={isActive ? '#F0F4F9' : 'transparent'}
+            onClick={() => { onNavIconClick(`/${href}`) }}
+          >
+            <Flex justifyContent={"center"} alignItems={"center"} h="80px">
+              <Icon as={img} w={6} h={6}
+                color={isActive ? "18222F" : "#A2B5D0"}
+                cursor="pointer" />
+            </Flex>
+          </Box>
+        </Tooltip>
+
+      </a>
+    </Link >
+  );
+}
+
+
+function SubNavigationLink({ href, subMenuName, router, subIcon }: any) {
+
+  const isActive = router.asPath === `/${href}`;
+
+  return (
+    <Link href={`/${href}`}>
+      <a style={{ width: "100%" }}>
+        <Button w="100%" color={"#18222F"}
+          bg={isActive ? "#E4EAF1" : "transparent"}
+          fontFamily="Inter"
+          fontWeight="500"
+          leftIcon={<Icon as={subIcon} />}
+          justifyContent="flex-start"
+          _hover={isActive ? { backgroundColor: "#E4EAF1" } : { backgroundColor: "transparent" }}
+          _active={{ background: "none" }}
+        >
+          {subMenuName}
+        </Button>
+      </a>
+    </Link>
+  )
+}

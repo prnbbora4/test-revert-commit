@@ -9,6 +9,8 @@ import {
   DrawerCloseButton
 } from '@chakra-ui/react'
 
+import { Show, Hide, Box } from '@chakra-ui/react'
+
 import { HamburgerIcon } from '@chakra-ui/icons'
 
 const Index = () => {
@@ -49,6 +51,15 @@ const Index = () => {
 
 
       <h1>hello</h1>
+
+      <Hide breakpoint='(max-width: 400px)'>
+        <p>i am a jr developer</p>
+      </Hide>
+      <p>rhfgrdsf</p>
+
+      <Show breakpoint='(max-width: 400px)'>
+        <Box>This text appears only on screens 400px and smaller.</Box>
+      </Show>
     </div>
   )
 }
